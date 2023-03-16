@@ -23,7 +23,11 @@ public class LoginController {
     }
 
     @GetMapping()
-    public String loginView(@ModelAttribute("user") User user) {
+    public String loginView(@ModelAttribute("user") User user, Model model) {
+        if(user.getUsername() != null) {
+            model.addAttribute("logout", true);
+        }
+
         return "login";
     }
 
@@ -31,9 +35,22 @@ public class LoginController {
     public String loginUser(@ModelAttribute("user") User user, Model model, Authentication authentication) {
         String loginError = null;
 
-        if(userService.getUserByUsername(user.getUsername()) != null) {
-            authenticationService.authenticate(authentication);
+        if(userService.getUserByUsername(user.getUsername()) == null) {
+            loginError = "User does not exist";
         }
+
+        if(loginError == null) {
+            if(authenticationService.authenticate(authentication) == null) {
+                loginError = "Incorrect password";
+            }
+        }
+
+        if(loginError == null) {
+            model.addAttribute("loginSuccess", true);
+        } else {
+            model.addAttribute("loginError", loginError);
+        }
+
         return "login";
     }
 }

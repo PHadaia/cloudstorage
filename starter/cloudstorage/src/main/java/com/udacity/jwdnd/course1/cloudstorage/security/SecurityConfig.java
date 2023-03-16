@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
     public SecurityConfig(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/signup", "h2-console", "/css/**", "/js/**").permitAll()
+                .antMatchers("/signup", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity.formLogin()
