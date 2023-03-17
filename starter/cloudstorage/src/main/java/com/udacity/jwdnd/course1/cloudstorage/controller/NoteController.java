@@ -14,19 +14,19 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/notes")
+public class NoteController {
     private final NoteService noteService;
     private final UserService userService;
 
-    public HomeController(NoteService noteService, UserService userService) {
+    public NoteController(NoteService noteService, UserService userService) {
         this.noteService = noteService;
         this.userService = userService;
     }
 
     @GetMapping()
     public String homeView(@ModelAttribute("note") Note note) {
-        return "home";
+        return "notes";
     }
 
     @PostMapping(params="action=save")
@@ -34,7 +34,7 @@ public class HomeController {
         note.setUserId(userService.getUserByUsername(principal.getName()).getUserId());
         noteService.createNote(note);
         notes.add(note);
-        return "home";
+        return "notes";
     }
 
     @PostMapping(params="action=edit")
@@ -46,14 +46,14 @@ public class HomeController {
                 noteService.updateNote(n);
             }
         }
-        return "home";
+        return "notes";
     }
 
     @PostMapping(params="action=delete")
     public String deleteNote(@ModelAttribute("note") Note note, @ModelAttribute("notes") List<Note> notes) {
         notes.removeIf(n -> Objects.equals(n.getNoteId(), note.getNoteId()));
         noteService.deleteNote(note.getNoteId());
-        return "home";
+        return "notes";
     }
 
     @ModelAttribute("notes")
