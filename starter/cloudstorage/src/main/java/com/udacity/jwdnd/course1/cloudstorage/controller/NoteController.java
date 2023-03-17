@@ -25,7 +25,7 @@ public class NoteController {
     }
 
     @GetMapping()
-    public String homeView(@ModelAttribute("note") Note note) {
+    public String notesView(@ModelAttribute("note") Note note) {
         return "notes";
     }
 
