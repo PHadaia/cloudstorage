@@ -33,5 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.formLogin()
                 .defaultSuccessUrl("/files", true);
+/*
+        httpSecurity.logout()
+                .logoutUrl("/login")
+                .logoutSuccessUrl("/login");
+
+ */
     }
 }

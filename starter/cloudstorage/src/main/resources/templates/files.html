@@ -11,8 +11,8 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container">
             <div id="logoutDiv">
-                <form action="#" method="POST">
-                    <button type="submit" class="btn btn-secondary float-right">Logout</button>
+                <form action="#" method="POST" th:action="@{'/login'}">
+                    <button type="submit" class="btn btn-secondary float-right" value="Logout">Logout</button>
                 </form>
             </div>
             <div id="contentDiv" style="clear: right;">
@@ -27,6 +27,9 @@
                     <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
                         <p th:if="${uploadSuccess}" class="alert alert-success">Upload succeeded</p>
                         <p th:if="${uploadSuccess == false}" class="alert alert-danger">Upload failed</p>
+                        <div>
+                            <p class="alert alert-success" th:if="${message != null}" th:text="${message}"></p>
+                        </div>
                         <form action="#" enctype="multipart/form-data" th:action="@{'/files'}" method="POST">
                             <div class="container">
                                 <div class="row" style="margin: 1em;">

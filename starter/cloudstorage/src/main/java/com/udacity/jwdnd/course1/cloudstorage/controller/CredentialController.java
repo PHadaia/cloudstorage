@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.model.Credentials;
 import com.udacity.jwdnd.course1.cloudstorage.service.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,30 +31,34 @@ public class CredentialController {
     }
 
     @PostMapping(params="action=save")
-    public String addCredentials(@ModelAttribute("credential") Credentials credential, @ModelAttribute("credentials") List<Credentials> credentials, Principal principal) {
+    public String addCredentials(@ModelAttribute("credential") Credentials credential, @ModelAttribute("credentials") List<Credentials> credentials, Principal principal, Model model) {
         credential.setUserId(userService.getUserByUsername(principal.getName()).getUserId());
         credentialService.createCredentials(credential);
         credentials.add(credential);
+        model.addAttribute("message", "Successfully added credentials");
         return "credentials";
     }
 
     @PostMapping(params="action=edit")
-    public String editCredentials(@ModelAttribute("credential") Credentials credential, @ModelAttribute("credentials") List<Credentials> credentials) {
+    public String editCredentials(@ModelAttribute("credential") Credentials credential, @ModelAttribute("credentials") List<Credentials> credentials, Model model) {
         for(Credentials c : credentials) {
             if(c.getCredentialId().equals(credential.getCredentialId())) {
                 c.setUrl(credential.getUrl());
                 c.setUsername(credential.getUsername());
                 c.setPassword(credential.getPassword());
                 credentialService.updateCredentials(c);
+                model.addAttribute("message", "Successfully updated credentials");
+
             }
         }
         return "credentials";
     }
 
     @PostMapping(params="action=delete")
-    public String deleteCredentials(@ModelAttribute("credential") Credentials credential, @ModelAttribute("credentials") List<Credentials> credentials) {
+    public String deleteCredentials(@ModelAttribute("credential") Credentials credential, @ModelAttribute("credentials") List<Credentials> credentials, Model model) {
         credentials.removeIf(c -> Objects.equals(c.getCredentialId(), credential.getCredentialId()));
         credentialService.deleteCredentials(credential.getCredentialId());
+        model.addAttribute("message", "Successfully deleted credentials");
         return "credentials";
     }
 

@@ -57,23 +57,23 @@ class CloudStorageApplicationTests {
 		webDriverWait.until(ExpectedConditions.titleContains("Sign Up"));
 		
 		// Fill out credentials
-		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputFirstName")));
-		WebElement inputFirstName = driver.findElement(By.id("inputFirstName"));
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstname")));
+		WebElement inputFirstName = driver.findElement(By.id("firstname"));
 		inputFirstName.click();
 		inputFirstName.sendKeys(firstName);
 
-		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputLastName")));
-		WebElement inputLastName = driver.findElement(By.id("inputLastName"));
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastname")));
+		WebElement inputLastName = driver.findElement(By.id("lastname"));
 		inputLastName.click();
 		inputLastName.sendKeys(lastName);
 
-		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputUsername")));
-		WebElement inputUsername = driver.findElement(By.id("inputUsername"));
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+		WebElement inputUsername = driver.findElement(By.id("username"));
 		inputUsername.click();
 		inputUsername.sendKeys(userName);
 
-		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputPassword")));
-		WebElement inputPassword = driver.findElement(By.id("inputPassword"));
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
+		WebElement inputPassword = driver.findElement(By.id("password"));
 		inputPassword.click();
 		inputPassword.sendKeys(password);
 
@@ -101,13 +101,13 @@ class CloudStorageApplicationTests {
 		driver.get("http://localhost:" + this.port + "/login");
 		WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
 
-		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputUsername")));
-		WebElement loginUserName = driver.findElement(By.id("inputUsername"));
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
+		WebElement loginUserName = driver.findElement(By.id("username"));
 		loginUserName.click();
 		loginUserName.sendKeys(userName);
 
-		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputPassword")));
-		WebElement loginPassword = driver.findElement(By.id("inputPassword"));
+		webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
+		WebElement loginPassword = driver.findElement(By.id("password"));
 		loginPassword.click();
 		loginPassword.sendKeys(password);
 
@@ -115,7 +115,7 @@ class CloudStorageApplicationTests {
 		WebElement loginButton = driver.findElement(By.id("login-button"));
 		loginButton.click();
 
-		webDriverWait.until(ExpectedConditions.titleContains("Home"));
+		webDriverWait.until(ExpectedConditions.titleContains("Files"));
 
 	}
 

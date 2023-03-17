@@ -55,7 +55,7 @@ public class FileController {
     }
 
     @GetMapping(params="action=view")
-    public String downloadFile(@ModelAttribute("file") File file, @ModelAttribute("files") List<File> files, HttpServletResponse response) {
+    public String downloadFile(@ModelAttribute("file") File file, @ModelAttribute("files") List<File> files, HttpServletResponse response, Model model) {
         for(File f : files) {
             if(f.getFileId().equals(file.getFileId())) {
                 File responseFile = fileService.getFile(f.getFileId());
@@ -72,13 +72,15 @@ public class FileController {
                 }
             }
         }
+        model.addAttribute("message", "Successfully downloaded file");
         return "files";
     }
 
     @PostMapping(params="action=delete")
-    public String deleteFile(@ModelAttribute("multiPartFile") MultipartFile multipartFile, @ModelAttribute("file") File file, @ModelAttribute("files") List<File> files) {
+    public String deleteFile(@ModelAttribute("multiPartFile") MultipartFile multipartFile, @ModelAttribute("file") File file, @ModelAttribute("files") List<File> files, Model model) {
         files.removeIf(n -> Objects.equals(n.getFileId(), file.getFileId()));
         fileService.deleteFile(file.getFileId());
+        model.addAttribute("message", "Successfully deleted file");
         return "files";
     }
 

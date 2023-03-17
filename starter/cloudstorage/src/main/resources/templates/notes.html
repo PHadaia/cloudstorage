@@ -11,8 +11,8 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container">
             <div id="logoutDiv">
-                <form action="#" method="POST">
-                    <button type="submit" class="btn btn-secondary float-right">Logout</button>
+                <form action="#" method="POST" th:action="@{'/login'}">
+                    <button type="submit" class="btn btn-secondary float-right" value="Logout">Logout</button>
                 </form>
             </div>
             <div id="contentDiv" style="clear: right;">
@@ -24,6 +24,9 @@
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
+                    <div>
+                        <p class="alert alert-success" th:if="${message != null}" th:text="${message}"></p>
+                    </div>
                     <div class="tab-pane fade show active" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
                         <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" name="note" th:data-button-action="save">
                             + Add a New Note
