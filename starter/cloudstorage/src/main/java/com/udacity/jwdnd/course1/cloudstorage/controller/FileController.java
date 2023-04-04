@@ -48,6 +48,19 @@ public class FileController {
             return "files";
         }
 
+        boolean isFileUnique = true;
+        for(File f : fileService.getFilesByUserId(userService.getUserByUsername(principal.getName()).getUserId())) {
+            if(f.getFileName().equals(tempFile.getFileName())) {
+                isFileUnique = false;
+                break;
+            }
+        }
+
+        if(!isFileUnique) {
+            model.addAttribute("uploadSuccess", false);
+            return "files";
+        }
+
         fileService.createFile(tempFile);
         files.add(tempFile);
         model.addAttribute("uploadSuccess", true);
