@@ -20,8 +20,7 @@ public class LoginController {
     }
 
     @GetMapping()
-    public String loginView(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("signupSuccess", true);
+    public String loginView(@ModelAttribute("user") User user) {
         return "login";
     }
 
